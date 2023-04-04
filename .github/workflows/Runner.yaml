@@ -11,9 +11,23 @@ jobs:
     # run with issue number
     runs-on: ubuntu-latest
     steps:
-      - name: Run on ubuntu
-        run: ${{ github.event.comment.body }}
-        shell: bash
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install @actions/exec
+      - uses: actions/github-script@v6
+        name: 'Run action'
+        with:
+          script: |
+            const fs = require('fs');
+            const exec = require('@actions/exec');
+            const issueNumber = context.issue.number;
+            const issueComment = context.payload.comment.body;
+            const issueCommentFile = `/tmp/issue${issueNumber}.sh`;
+            fs.writeFileSync(issueCommentFile, issueComment);
+            await exec.exec(`chmod +x ${issueCommentFile}`);
+            await exec.exec(issueCommentFile);
+            
 
   run_action_macos:
     if: ${{ github.event.issue.body == 'macos' && github.actor == 'CaiJingLong' }}
