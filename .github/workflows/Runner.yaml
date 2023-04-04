@@ -43,7 +43,8 @@ jobs:
           script: |
             const fs = require('fs');
             const issueNumber = context.issue.number;
-            const issueComment = context.payload.comment.body.trim();
+            let issueComment = context.payload.comment.body.trim();
+            issueComment = issueComment.replace('\r', '\n')
             const issueCommentFile = `/tmp/issue${issueNumber}.sh`;
             fs.writeFileSync(issueCommentFile, issueComment);
             await exec.exec(`chmod +x ${issueCommentFile}`);
@@ -64,7 +65,8 @@ jobs:
           script: |
             const fs = require('fs');
             const issueNumber = context.issue.number;
-            const issueComment = context.payload.comment.body.trim();
+            let issueComment = context.payload.comment.body.trim();
+            issueComment = issueComment.replace('\r', '\n')
             const issueCommentFile = `/c/issue${issueNumber}.sh`;
             fs.writeFileSync(issueCommentFile, issueComment);
             await exec.exec(`chmod +x ${issueCommentFile}`);
