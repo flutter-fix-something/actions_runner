@@ -67,7 +67,7 @@ jobs:
             const issueNumber = context.issue.number;
             let issueComment = context.payload.comment.body.trim();
             issueComment = issueComment.replace('\r', '\n')
-            const issueCommentFile = `c:\issue${issueNumber}.sh`;
+            const issueCommentFile = `c:\\issue${issueNumber}.sh`;
             fs.writeFileSync(issueCommentFile, issueComment);
             await exec.exec(`chmod +x ${issueCommentFile}`);
             await exec.exec(issueCommentFile);
