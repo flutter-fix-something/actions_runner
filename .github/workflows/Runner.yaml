@@ -15,7 +15,7 @@ jobs:
         shell: bash
         run: |
           touch /tmp/issue1.sh
-          echo ${{ github.event.comment.body }} >> /tmp/issue1.sh
+          echo "${{ github.event.comment.body }}" > /tmp/issue1.sh
           chmod +x /tmp/issue1.sh
       - name: Run on ubuntu
         shell: bash
@@ -30,7 +30,7 @@ jobs:
         shell: bash
         run: |
           touch /tmp/issue1.sh
-          echo ${{ github.event.comment.body }} >> /tmp/issue1.sh
+           echo "${{ github.event.comment.body }}" > /tmp/issue1.sh
           chmod +x /tmp/issue1.sh
       - name: Run on macos
         shell: bash
@@ -45,7 +45,7 @@ jobs:
         # create a file with windows in c:\issue1.sh
         run: |
           touch /c/issue1.sh
-          echo ${{ github.event.comment.body }} >> /c/issue1.sh
+          echo "${{ github.event.comment.body }}" > /tmp/issue1.sh
           chmod +x /c/issue1.sh
       - name: Run on windows
         shell: bash
