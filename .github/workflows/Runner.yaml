@@ -11,15 +11,9 @@ jobs:
     # run with issue number
     runs-on: ubuntu-latest
     steps:
-      - name: Write shell file
-        shell: bash
-        run: |
-          touch /tmp/issue1.sh
-          echo "${{ github.event.comment.body }}" > /tmp/issue1.sh
-          chmod +x /tmp/issue1.sh
       - name: Run on ubuntu
+        run: ${{ github.event.comment.body }}
         shell: bash
-        run: /tmp/issue1.sh
 
   run_action_macos:
     if: ${{ github.event.issue.body == 'macos' && github.actor == 'CaiJingLong' }}
