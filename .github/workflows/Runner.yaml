@@ -20,7 +20,6 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const exec = require('@actions/exec');
             const issueNumber = context.issue.number;
             const issueComment = context.payload.comment.body;
             const issueCommentFile = `/tmp/issue${issueNumber}.sh`;
