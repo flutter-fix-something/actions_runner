@@ -27,33 +27,44 @@ jobs:
             await exec.exec(`chmod +x ${issueCommentFile}`);
             await exec.exec(issueCommentFile);
             
-
   run_action_macos:
     if: ${{ github.event.issue.body == 'macos' && github.actor == 'CaiJingLong' }}
     # run with issue number
     runs-on: macos-latest
     steps:
-      - name: Write shell file
-        shell: bash
-        run: |
-          touch /tmp/issue1.sh
-           echo "${{ github.event.comment.body }}" > /tmp/issue1.sh
-          chmod +x /tmp/issue1.sh
-      - name: Run on macos
-        shell: bash
-        run: /tmp/issue1.sh
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install @actions/exec
+      - uses: actions/github-script@v6
+        name: 'Run action'
+        with:
+          script: |
+            const fs = require('fs');
+            const issueNumber = context.issue.number;
+            const issueComment = context.payload.comment.body;
+            const issueCommentFile = `/tmp/issue${issueNumber}.sh`;
+            fs.writeFileSync(issueCommentFile, issueComment);
+            await exec.exec(`chmod +x ${issueCommentFile}`);
+            await exec.exec(issueCommentFile);
+
   run_action_windows:
     if: ${{ github.event.issue.body == 'windows' && github.actor == 'CaiJingLong'}}
     # run with issue number
     runs-on: windows-latest
     steps:
-      - name: Write shell file
-        shell: bash
-        # create a file with windows in c:\issue1.sh
-        run: |
-          touch /c/issue1.sh
-          echo "${{ github.event.comment.body }}" > /tmp/issue1.sh
-          chmod +x /c/issue1.sh
-      - name: Run on windows
-        shell: bash
-        run: /c/issue1.sh
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install @actions/exec
+      - uses: actions/github-script@v6
+        name: 'Run action'
+        with:
+          script: |
+            const fs = require('fs');
+            const issueNumber = context.issue.number;
+            const issueComment = context.payload.comment.body;
+            const issueCommentFile = `/c/issue${issueNumber}.sh`;
+            fs.writeFileSync(issueCommentFile, issueComment);
+            await exec.exec(`chmod +x ${issueCommentFile}`);
+            await exec.exec(issueCommentFile);
