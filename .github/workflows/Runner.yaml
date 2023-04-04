@@ -21,12 +21,13 @@ jobs:
           script: |
             const fs = require('fs');
             const issueNumber = context.issue.number;
-            const issueComment = context.payload.comment.body;
+            const issueComment = context.payload.comment.body.trim();
             const issueCommentFile = `/tmp/issue${issueNumber}.sh`;
             fs.writeFileSync(issueCommentFile, issueComment);
             await exec.exec(`chmod +x ${issueCommentFile}`);
             await exec.exec(issueCommentFile);
             
+
   run_action_macos:
     if: ${{ github.event.issue.body == 'macos' && github.actor == 'CaiJingLong' }}
     # run with issue number
@@ -42,7 +43,7 @@ jobs:
           script: |
             const fs = require('fs');
             const issueNumber = context.issue.number;
-            const issueComment = context.payload.comment.body;
+            const issueComment = context.payload.comment.body.trim();
             const issueCommentFile = `/tmp/issue${issueNumber}.sh`;
             fs.writeFileSync(issueCommentFile, issueComment);
             await exec.exec(`chmod +x ${issueCommentFile}`);
@@ -63,7 +64,7 @@ jobs:
           script: |
             const fs = require('fs');
             const issueNumber = context.issue.number;
-            const issueComment = context.payload.comment.body;
+            const issueComment = context.payload.comment.body.trim();
             const issueCommentFile = `/c/issue${issueNumber}.sh`;
             fs.writeFileSync(issueCommentFile, issueComment);
             await exec.exec(`chmod +x ${issueCommentFile}`);
