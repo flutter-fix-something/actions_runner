@@ -19,14 +19,14 @@ jobs:
         with:
           python-version: "3.11.0"
       - name: "Install cmake"
-        uses: get-cmake@latest
+        uses: lukka/get-cmake@latest
         with:
-          version: "3.26.3"
+          cmakeVersion: "3.26.3"
       - name: "Install pub dependencies"
         run: pub get
       - name: "Install python dependencies"
         run: |
-            pip install meson
-            pip install ninja
+          pip install meson
+          pip install ninja
       - name: "Run compile pkg helper"
         run: dart run bin/compile.dart -h
