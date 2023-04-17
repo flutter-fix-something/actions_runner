@@ -19,9 +19,7 @@ jobs:
         with:
           python-version: "3.11.0"
       - name: "Install cmake"
-        uses: lukka/get-cmake@latest
-        with:
-          cmakeVersion: "3.26.3"
+        run: brew install --cask cmake
       - name: "Install pub dependencies"
         run: pub get
       - name: "Install python dependencies"
