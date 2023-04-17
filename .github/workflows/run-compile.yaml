@@ -28,3 +28,5 @@ jobs:
           pip install ninja
       - name: "Run compile pkg helper"
         run: dart run bin/compile.dart -h
+      - name: "Try compile"
+        run: dart run bin/compile.dart -o example-project/glib/project-opt.yml -C example-project/glib
