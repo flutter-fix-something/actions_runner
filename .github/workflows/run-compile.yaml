@@ -21,7 +21,7 @@ jobs:
     #   - name: "Install cmake"
     #     run: brew install --cask cmake
       - name: "Install pub dependencies"
-        run: pub get
+        run: dart pub get
       - name: "Install python dependencies"
         run: |
           pip install meson
