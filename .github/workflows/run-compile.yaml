@@ -1,0 +1,32 @@
+name: "Run compile pkg"
+
+on:
+  - workflow_dispatch
+
+jobs:
+  compile:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: "Mobipkg/compile"
+      - name: "Install dart"
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: "2.19.6"
+      - name: "Install python"
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.11.0"
+      - name: "Install cmake"
+        uses: get-cmake@latest
+        with:
+          version: "3.26.3"
+      - name: "Install pub dependencies"
+        run: pub get
+      - name: "Install python dependencies"
+        run: |
+            pip install meson
+            pip install ninja
+      - name: "Run compile pkg helper"
+        run: dart run bin/compile.dart -h
