@@ -18,8 +18,8 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: "3.11.0"
-      - name: "Install cmake"
-        run: brew install --cask cmake
+    #   - name: "Install cmake"
+    #     run: brew install --cask cmake
       - name: "Install pub dependencies"
         run: pub get
       - name: "Install python dependencies"
