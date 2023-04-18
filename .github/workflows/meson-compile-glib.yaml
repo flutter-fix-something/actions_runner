@@ -37,8 +37,8 @@ jobs:
             echo "[binaries]" >> cross-file.txt
             echo "c = '$TOOLCHAIN/bin/aarch64-linux-android21-clang'" >> cross-file.txt
             echo "cpp = '$TOOLCHAIN/bin/aarch64-linux-android21-clang++'" >> cross-file.txt
-            echo "ar = '$TOOLCHAIN/bin/aarch64-linux-android-ar'" >> cross-file.txt
-            echo "strip = '$TOOLCHAIN/bin/aarch64-linux-android-strip'" >> cross-file.txt
+            echo "ar = '$TOOLCHAIN/bin/llvm-ar'" >> cross-file.txt
+            echo "strip = '$TOOLCHAIN/bin/llvm-strip'" >> cross-file.txt
             echo "[built-in options]" >> cross-file.txt
             echo "c_args = ['-fPIC','-O2','-Wall']" >> cross-file.txt
             echo "cpp_args = ['-fPIC','-O2','-Wall']" >> cross-file.txt
