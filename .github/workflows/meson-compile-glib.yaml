@@ -26,6 +26,7 @@ jobs:
             export NDK_ROOT="${{ steps.setup-ndk.outputs.ndk-path }}"
             export TOOLCHAIN=$NDK_ROOT/toolchains/llvm/prebuilt/darwin-x86_64
             echo "[host_machine]" >> cross-file.txt
+            echo "system = 'android'" >> cross-file.txt
             echo "cpu_family = 'aarch64'" >> cross-file.txt
             echo "cpu = 'aarch64'" >> cross-file.txt
             echo "endian = 'little'" >> cross-file.txt
