@@ -13,8 +13,8 @@ jobs:
           repository: "GNOME/glib"
       - name: "Install meson"
         run: |
-          pip install meson
-          pip install ninja
+          pip3 install meson
+          pip3 install ninja
       - name: "Install ndk 25"
         run: |
            sdkmanager --install "ndk;25.2.9519653"
