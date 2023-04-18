@@ -15,12 +15,15 @@ jobs:
         run: |
           pip3 install meson
           pip3 install ninja
-      - name: "Install ndk 25"
-        run: |
-           sdkmanager --install "ndk;25.2.9519653"
+      - name: "Setup Android SDK"
+        uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r25b
+          local-cache: true
       - name: Create NDK cross-file
         run: |
-            export NDK_ROOT=/Users/runner/Library/Android/sdk/ndk/25.2.9519653
+            export NDK_ROOT="${{ steps.setup-ndk.outputs.ndk-path }}"
             export TOOLCHAIN=$NDK_ROOT/toolchains/llvm/prebuilt/darwin-x86_64
             echo "[host_machine]" >> cross-file.txt
             echo "cpu_family = 'aarch64'" >> cross-file.txt
