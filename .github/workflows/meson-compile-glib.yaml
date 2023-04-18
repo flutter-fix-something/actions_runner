@@ -39,8 +39,6 @@ jobs:
             echo "ar = '$TOOLCHAIN/bin/aarch64-linux-android-ar'" >> cross-file.txt
             echo "strip = '$TOOLCHAIN/bin/aarch64-linux-android-strip'" >> cross-file.txt
             echo "[built-in options]" >> cross-file.txt
-            echo "c_std = 'c11" >> cross-file.txt
-            echo "cpp_std = 'c++11" >> cross-file.txt
             echo "c_args = ['-fPIC','-O2','-Wall']" >> cross-file.txt
             echo "cpp_args = ['-fPIC','-O2','-Wall']" >> cross-file.txt
             
