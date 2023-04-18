@@ -1,4 +1,4 @@
-name: "Run compile pkg"
+name: "Compile glib with meson"
 
 on:
   - workflow_dispatch
