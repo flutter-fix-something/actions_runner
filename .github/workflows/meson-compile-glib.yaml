@@ -1,0 +1,49 @@
+name: "Run compile pkg"
+
+on:
+  - workflow_dispatch
+
+jobs:
+  compile:
+    runs-on: macos-latest
+    steps:
+      - name: "Clone glib"
+        uses: actions/checkout@v3
+        with:
+          repository: "GNOME/glib"
+      - name: "Install meson"
+        run: |
+          pip install meson
+          pip install ninja
+      - name: "Install ndk 25"
+        run: |
+           sdkmanager --install "ndk;25.2.9519653"
+      - name: Create NDK cross-file
+        run: |
+            export NDK_ROOT=/Users/runner/Library/Android/sdk/ndk/25.2.9519653
+            export TOOLCHAIN=$NDK_ROOT/toolchains/llvm/prebuilt/darwin-x86_64
+            echo "[host_machine]" >> cross-file.txt
+            echo "cpu_family = 'aarch64'" >> cross-file.txt
+            echo "cpu = 'aarch64'" >> cross-file.txt
+            echo "endian = 'little'" >> cross-file.txt
+            echo "" >> cross-file.txt
+            echo "[properties]" >> cross-file.txt
+            echo "needs_exe_wrapper = false" >> cross-file.txt
+            echo "sys_root = '$TOOLCHAIN/sysroot'" >> cross-file.txt
+            echo "[binaries]" >> cross-file.txt
+            echo "c = '$TOOLCHAIN/bin/aarch64-linux-android21-clang'" >> cross-file.txt
+            echo "cpp = '$TOOLCHAIN/bin/aarch64-linux-android21-clang++'" >> cross-file.txt
+            echo "ar = '$TOOLCHAIN/bin/aarch64-linux-android-ar'" >> cross-file.txt
+            echo "strip = '$TOOLCHAIN/bin/aarch64-linux-android-strip'" >> cross-file.txt
+            echo "[built-in options]" >> cross-file.txt
+            echo "c_std = 'c11" >> cross-file.txt
+            echo "cpp_std = 'c++11" >> cross-file.txt
+            echo "c_args = ['-fPIC','-O2','-Wall']" >> cross-file.txt
+            echo "cpp_args = ['-fPIC','-O2','-Wall']" >> cross-file.txt
+            
+      - name: "Compile glib with meson for cross-compiling"
+        run: |
+          export INSTALL_PREFIX="$(pwd)/install"
+          meson setup build --cross-file cross-file.txt --buildtype=release --default-library="both" --prefix="$INSTALL_PREFIX" 
+          meson compile -C build
+          meson install -C build
